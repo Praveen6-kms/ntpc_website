@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Update</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f7f8fc;
+    }
+    .container {
+      margin-top: 60px;
+    }
+    h2 {
+      color: #004080;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Edit Daily Update</h2>
+      <div>
+        <a href="{{ url_for('home') }}" class="btn btn-info mr-2">Home Page</a>
+        <a href="{{ url_for('manage_updates') }}" class="btn btn-secondary">Manage Updates</a>
+      </div>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" name="title" class="form-control" value="{{ update[1] }}" required>
+      </div>
+      <div class="form-group">
+        <label>Message:</label>
+        <textarea name="message" class="form-control" rows="4" required>{{ update[2] }}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Start Date:</label>
+        <input type="date" name="start_date" class="form-control" value="{{ update[3] }}" required>
+      </div>
+      <div class="form-group">
+        <label>End Date:</label>
+        <input type="date" name="end_date" class="form-control" value="{{ update[4] }}" required>
+      </div>
+
+      {% if update[5] %}
+      <div class="form-group">
+        <label>Current Image:</label><br>
+        <img src="{{ url_for('static', filename='uploads/' + update[5]) }}" class="img-thumbnail mb-2" style="max-width: 300px;">
+      </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label>Change Image (optional):</label>
+        <input type="file" name="image" class="form-control-file">
+        <input type="hidden" name="old_image" value="{{ update[5] }}">
+      </div>
+
+      <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+  </div>
+</body>
+</html>
